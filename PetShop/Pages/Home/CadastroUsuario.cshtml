@@ -1,0 +1,41 @@
+﻿@page
+@model PetShop.Pages.Home.CadastroUsuarioModel
+@{
+    ViewData["Title"] = "Cadastro de acessos";
+}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-5">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+                    <h2>Cadastro de acesso</h2>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input asp-for="Input.Email" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Senha</label>
+                            <input asp-for="Input.Password" type="password" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Confirmar Senha</label>
+                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            Cadastrar
+                        </button>
+                    </form>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

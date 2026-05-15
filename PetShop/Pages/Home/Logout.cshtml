@@ -1,0 +1,38 @@
+﻿@page
+@model PetShop.Pages.Home.LogoutModel
+@{
+    ViewData["Title"] = "Logout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-body p-5 text-center">
+
+                    <h2 class="mb-4">
+                        Logout
+                    </h2>
+
+                    <p class="mb-4 fs-5">
+                        <h3>
+                            Deseja realmente sair do sistema?
+                        </h3>
+                    </p>
+
+                    <form method="post">
+
+                        <button type="submit" class="btn btn-danger px-4">
+                            Confirmar Logout
+                        </button>
+
+                        <a asp-page="/Index" class="btn btn-secondary px-4 ms-2">
+                            Cancelar
+                        </a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

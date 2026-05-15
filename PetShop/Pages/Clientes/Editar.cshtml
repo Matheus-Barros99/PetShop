@@ -1,0 +1,83 @@
+﻿@page "{id:int}"
+@model PetShop.Pages.Clientes.EditarModel
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">
+                        Editar Cliente
+                    </h2>
+                    <form method="post">
+                        <input type="hidden" asp-for="Cliente.Id" />
+                        <div asp-validation-summary="All"
+                             class="text-danger mb-3">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"> Nome:</label>
+                            <input asp-for="Cliente.Nome" class="form-control" required maxlength="50" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Telefone:</label>
+                            <input asp-for="Cliente.Telefone" id="telefone" class="form-control" required maxlength="14" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">CPF:</label>
+                            <input asp-for="Cliente.Cpf" id="cpf" class="form-control" required maxlength="14" />
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Endereço:</label>
+                            <input asp-for="Cliente.Endereco" class="form-control" required />
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                Salvar
+                            </button>
+
+                            <a asp-page="/Clientes/Index" class="btn btn-secondary">
+                                Voltar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        const cpfInput = document.getElementById("cpf");
+
+        cpfInput.addEventListener("input", function (e) {
+
+            let value = e.target.value.replace(/\D/g, "");
+
+            value = value.replace(/(\d{3})(\d)/, "$1.$2");
+
+            value = value.replace(/(\d{3})(\d)/,"$1.$2");
+
+            value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+            e.target.value = value;
+        });
+
+        const telefoneInput = document.getElementById("telefone");
+
+        telefoneInput.addEventListener("input", function (e) {
+
+            let value = e.target.value.replace(/\D/g, "");
+
+            value = value.replace(/^(\d{2})(\d)/g, "($1)$2");
+
+            value = value.replace(/(\d{5})(\d)/, "$1-$2");
+
+            e.target.value = value;
+        });
+
+    </script>
+}

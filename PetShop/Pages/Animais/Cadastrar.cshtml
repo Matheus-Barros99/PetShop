@@ -1,0 +1,152 @@
+﻿@page
+@model PetShop.Pages.Animais.CadastrarModel
+@{
+    ViewData["Title"] = "Novo animal";
+
+        var tiposAnimal = Html.GetEnumSelectList<PetShop.Data.Models.Enums.TipoAnimal>().Select(ts => new SelectListItem
+            {
+        Selected = ts.Value == ((int)PetShop.Data.Models.Enums.TipoAnimal.Cachorro).ToString() ? true : false,
+                Disabled = ts.Disabled,
+                Group = ts.Group,
+                Text = ts.Text,
+                Value = ts.Value
+            });
+}
+
+<style>
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 20px;
+    }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        height: 20px;
+        border-radius: 10px;
+        top: 0;
+        left: 0;
+        right: 2px;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        box-shadow: 0 1px 2px rgba(40, 40, 40, 0.2);
+        transition: background-color 0.4s, box-shadow 0.5s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            border-radius: 50%;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: transform 0.4s;
+        }
+
+    input:checked + .slider {
+        background-color: #509d2f;
+        box-shadow: 0 1px 2px rgba(40, 40, 40, 0.5);
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #509d2f;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }  
+</style>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">
+                        Novo animal para o cliente @Model.NomeCliente
+                    </h2>
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="IdCliente" />
+                        <div class="mb-3">
+                            <label class="form-label"> Nome:</label>
+                            <input asp-for="Animal.Nome" class="form-control" required maxlength="20" />
+                        </div>
+                        <div class="col-md-6 d-flex flex-column ms-1 mt-2">
+                            <label for="Tipo" class="form-label fw-bold">Tipo:</label>
+                            <select asp-for="Animal.TipoAnimal" class="form-select" asp-items="@tiposAnimal">
+                                <option value="">Selecione</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 d-flex flex-column ms-2 mt-3">
+                            <label class="form-label fw-bold">Possui alergia?</label>
+                            <div class="custom-control custom-switch mt-1">
+                                <label class="switch">
+                                    <input value="true" type="checkbox" asp-for="Animal.TemAlergia" class="switchAlergia">
+                                    <span class="slider"></span>
+                                    <input value="false" type="hidden" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex flex-column ms-2 mt-3">
+                            <label class="form-label fw-bold">Pode perfume?</label>
+                            <div class="custom-control custom-switch mt-1">
+                                <label class="switch">
+                                    <input value="true" type="checkbox" asp-for="Animal.PodePerfume" class="switchPerfume">
+                                    <span class="slider"></span>
+                                    <input value="false" type="hidden" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex flex-column ms-2 mt-3">
+                            <label class="form-label fw-bold">Pode enfeite?</label>
+                            <div class="custom-control custom-switch mt-1">
+                                <label class="switch">
+                                    <input value="true" type="checkbox" asp-for="Animal.PodeEnfeite" class="switchEnfeite">
+                                    <span class="slider"></span>
+                                    <input value="false" type="hidden" />
+                                </label>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                Salvar
+                            </button>
+
+                            <a href="/Clientes/Index?idCliente=@Model.IdCliente" class="btn btn-secondary">
+                                Voltar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

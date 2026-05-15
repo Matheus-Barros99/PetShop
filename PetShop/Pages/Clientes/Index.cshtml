@@ -1,0 +1,109 @@
+﻿@page
+@model PetShop.Pages.Clientes.IndexModel
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">
+            Clientes
+        </h2>
+        <a asp-page="/Clientes/Cadastrar"
+           class="btn btn-primary">Adicionar</a>
+    </div>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-hover align-middle" data-toggle="table" data-toolbar="#toolbar" data-search="true">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>CPF</th>
+                        <th>Endereço</th>
+                        <th width="180">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cliente in Model.Clientes)
+                    {
+                        <tr>
+                            <td>
+                                @cliente.Nome
+                            </td>
+                            <td>
+                                @cliente.Telefone
+                            </td>
+                            <td>
+                                @cliente.Cpf
+                            </td>
+                            <td>
+                                @cliente.Endereco
+                            </td>
+                            <td>
+                                <a  href="/Animais/Index?idCliente=@cliente.Id" class="btn btn-sm btn-success" title="Animais">
+                                    <i class="fa-solid fa-dog"></i>
+                                </a>
+                                <a asp-page="/Clientes/Editar" asp-route-id="@cliente.Id" class="btn btn-sm btn-warning" title="Editar">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" title="Excluir" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@cliente.Id" data-nome="@cliente.Nome">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" asp-page-handler="Delete">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    Excluir Cliente
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="clienteId" name="id" />
+                                <p>
+                                    Deseja realmente excluir o cliente: <strong id="clienteNome"></strong>?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-danger">
+                                    Excluir
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+
+        const deleteModal =document.getElementById('deleteModal');
+
+        deleteModal.addEventListener('show.bs.modal',
+            function (event) {
+                const button = event.relatedTarget;
+
+                const id = button.getAttribute('data-id');
+
+                const nome = button.getAttribute('data-nome');
+
+                document.getElementById('clienteId').value = id;
+
+                document.getElementById('clienteNome').innerText = nome;
+            });
+    </script>
+}
