@@ -4,18 +4,15 @@ using PetShop.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
+var connectionString = builder.Configuration.GetConnectionString("PostgresConnection");
 var connectionStringIdentity = builder.Configuration.GetConnectionString("IdentityConnection");
 
-builder.Services.AddDbContext<PetShopDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), 
-                                                           m => m.MigrationsAssembly("PetShop.Data")));
+builder.Services.AddDbContext<PetShopDbContext>(options => options.UseNpgsql(connectionString));
 
-builder.Services.AddDbContext<IdentidadeDbContext>(options => options.UseMySql(connectionStringIdentity, ServerVersion.AutoDetect(connectionStringIdentity)));
+builder.Services.AddDbContext<IdentidadeDbContext>(options => options.UseNpgsql(connectionStringIdentity));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<IdentidadeDbContext>()
-                .AddDefaultUI(); ;
+                .AddEntityFrameworkStores<IdentidadeDbContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
