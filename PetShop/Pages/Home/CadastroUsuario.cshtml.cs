@@ -56,7 +56,7 @@ namespace PetShop.Pages.Home
 
             if (result.Succeeded)
             {
-                return RedirectToPage("/Auth/Login");
+                return RedirectToPage("/Index");
             }
 
             foreach (var error in result.Errors)
