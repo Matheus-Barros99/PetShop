@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # AppSettings
 appsettings.Development.json
+/PetShop/appsettings.Development.json
