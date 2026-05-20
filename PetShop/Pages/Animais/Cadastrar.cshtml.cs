@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetShop.Data.Context;
@@ -5,6 +6,7 @@ using PetShop.Data.Models;
 
 namespace PetShop.Pages.Animais
 {
+    [Authorize]
     public class CadastrarModel : PageModel
     {
         private readonly PetShopDbContext _context;

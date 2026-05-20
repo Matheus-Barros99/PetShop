@@ -14,18 +14,18 @@ builder.Services.AddDbContext<IdentidadeDbContext>(options => options.UseNpgsql(
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<IdentidadeDbContext>();
 
-//// Add services to the container.
-//builder.Services.AddRazorPages(options =>
-//{
-//    options.Conventions.AuthorizeFolder("/");
+// Add services to the container.
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/");
 
-//    options.Conventions.AllowAnonymousToPage("/Home/Login");
-//});
+    options.Conventions.AllowAnonymousToPage("/Home/Login");
+});
 
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    options.LoginPath = "/Home/Login";
-//});
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Home/Login";
+});
 
 builder.Services.AddDistributedMemoryCache();
 
